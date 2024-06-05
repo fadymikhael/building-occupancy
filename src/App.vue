@@ -27,7 +27,7 @@
           <div v-for="(floor, floorIndex) in building.floors" :key="floor.dynamicId" class="mb-6 bg-white rounded-lg shadow-md p-4">
             <div :class="['p-4 rounded-t-lg mb-4 flex justify-between items-center', {'bg-floor text-white': calculateOccupationRate(floor.rooms) !== '0.00', 'bg-light-gray': calculateOccupationRate(floor.rooms) === '0.00'}]">
               <h3 :class="['text-xl font-medium', {'text-white': calculateOccupationRate(floor.rooms) !== '0.00', 'text-gray-800': calculateOccupationRate(floor.rooms) === '0.00'}]">
-                Étage Numéro {{ floorIndex + 1 }} : {{ floor.name }}
+                Étage Numéro {{ floorIndex + 0 }} : {{ floor.name }}
                 <span class="text-sm font-semibold ml-2">
                   (Taux d'occupation: {{ calculateOccupationRate(floor.rooms) }}%)
                 </span>
@@ -86,12 +86,13 @@ export default {
           }));
           state.buildings = buildings;
           fetchOccupations(); 
-        } else {
-          console.error('Unexpected data format for context:', contextData);
-        }
-      } catch (error) {
-        console.error('Erreur lors de la récupération des bâtiments:', error);
-      }
+} else {
+  console.error('Format de données inattendu pour le contexte:', contextData);
+}
+} catch (error) {
+  console.error('Erreur lors de la récupération des bâtiments:', error);
+}
+
     };
 
     // Fonction pour récupérer les données d'occupation pour chaque pièce
@@ -111,7 +112,7 @@ export default {
               } else if (response.data && typeof response.data === 'object' && response.data.endpoints) {
                 processEndpoints(room, response.data.endpoints);
               } else {
-                console.error(`Unexpected data format for room ${room.name}:`, response.data);
+                console.error(`Format de données inattendu pour la pièce  ${room.name}:`, response.data);
               }
             })
             .catch(error => {
